@@ -39,7 +39,7 @@ public class Storage {
 	private static JSONArray jsonArr = new JSONArray();
 	
 	public static void saveArray() throws IOException{
-		FileWriter file = new FileWriter(".\\Control.json",true);
+		FileWriter file = new FileWriter(".\\Control.json",false);
 		file.write(jsonArr.toJSONString());
 		file.write("\r\n");
 		file.flush();
