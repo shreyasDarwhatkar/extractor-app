@@ -5,17 +5,14 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
-
-/*import org.apache.tika.metadata.Metadata;
-import org.apache.tika.sax.Link;
-*/import org.json.simple.JSONArray;
+import org.json.simple.JSONArray;
 import org.json.simple.JSONObject;
 import org.jsoup.select.Elements;
 
 public class DataWeb {
 	
 	String url;
-	String data;
+	String path;
 	//List<String> links;
 	List<DataFile> files;
 	Elements elements;
@@ -23,7 +20,6 @@ public class DataWeb {
 	HashMap<String,String> Links;
 	JSONObject json;
 	JSONObject metadata;
-	//Metadata metadata2;
 	HashMap<String,String> FileMetaData;
 
 	public DataWeb() {
@@ -32,23 +28,23 @@ public class DataWeb {
 		json = new JSONObject();
 	}
 
-	public DataWeb(String data, List<String> links, List<DataFile> files,
+	public DataWeb(String path, List<String> links, List<DataFile> files,
 			Elements elements, JSONObject json) {
 		super();
 		this.url = url;
-		this.data = data;
+		this.path = path;
 		//this.links = links;
 		this.files = files;
 		this.elements = elements;
 		this.json = json;
 	}
 
-	public String getData() {
-		return data;
+	public String getPath() {
+		return path;
 	}
 
-	public void setData(String data) {
-		this.data = data;
+	public void setPath(String path) {
+		this.path = path;
 	}
 
 	/*public List<String> getLinks() {
@@ -92,9 +88,8 @@ public class DataWeb {
 		this.url = url;
 	}
 
-	@SuppressWarnings("unchecked")
 	public void createJSON(){
-		//this.json.put("url", this.url);
+		this.json.put("url", this.url);
 		//this.json.put("data", this.data);
 		//JSONArray arr = new JSONArray();
 		//System.out.println(this.links.size());
@@ -104,9 +99,10 @@ public class DataWeb {
 		//this.json.put("links", this.links);
 		//this.json.put("files",);
 		//this.json.put("Metadata", this.elements);
-		//this.json.put("Metadata", this.metadata);
-		this.json.put("links", this.Links);
+		this.json.put("URL", url);
+		this.json.put("path", path);
 		this.json.put("MetaData", FileMetaData);
+		this.json.put("links", this.Links);
 		
 	}
 
@@ -139,7 +135,7 @@ public class DataWeb {
 	public void setMetadata(JSONObject metadata) {
 		this.metadata = metadata;
 	}
-
+	
 	public HashMap<String, String> getFileMetaData() {
 		return FileMetaData;
 	}

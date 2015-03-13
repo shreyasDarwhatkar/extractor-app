@@ -1,20 +1,34 @@
 package edu.calstatela.cs454.instructor.crawler.extractor_app;
 
 import java.io.File;
+import java.io.FileInputStream;
 import java.io.FileReader;
 import java.io.FileWriter;
 import java.io.IOException;
+import java.net.URL;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.regex.Pattern;
 
+import org.apache.tika.Tika;
+import org.apache.tika.exception.TikaException;
+import org.apache.tika.metadata.Metadata;
+import org.apache.tika.parser.AutoDetectParser;
+import org.apache.tika.parser.ParseContext;
+import org.apache.tika.parser.Parser;
+import org.apache.tika.sax.BodyContentHandler;
+import org.apache.tika.sax.LinkContentHandler;
+import org.apache.tika.sax.TeeContentHandler;
+import org.apache.tika.sax.ToHTMLContentHandler;
 import org.json.simple.JSONObject;
 import org.json.simple.parser.JSONParser;
 import org.jsoup.Jsoup;
 import org.jsoup.nodes.Document;
 import org.jsoup.nodes.Element;
 import org.jsoup.select.Elements;
+import org.xml.sax.ContentHandler;
+import org.xml.sax.SAXException;
 
 public class Storage {
 
@@ -22,10 +36,12 @@ public class Storage {
 			.compile(".*\\.(jpg|xls|xlsx|doc|docx|ppt|pptx|pdf|mp3|jpeg)"
 					+ "(\\?.*)?$");
 
-	public void saveMetadata(String filePath) {
+	public void saveMetadata(String filePath, String url) throws SAXException, TikaException {
 		try {
 			Document doc = Jsoup.parse(new File(filePath), "utf-8");
 			DataWeb data = new DataWeb();
+			//System.out.println(filePath);
+			data.setUrl(url);
 			Elements urlLinks = doc.select("a[href]");
 			ArrayList<String> temp = new ArrayList<String>();
 			HashMap<String, String> linkMap = new HashMap<String, String>();
@@ -34,19 +50,46 @@ public class Storage {
 				linkMap.put(ele.text(), ele.attr("abs:href"));
 			}
 			data.setLinks(linkMap);
-			//Elements objMeta=doc.select("meta");
-			//String keywords = doc.select("meta[name=keywords]").first().attr("content");
-			//System.out.println(keywords);
-			HashMap<String, String> metaDataMap = new HashMap<String, String>();
+			
+			// startting here
+			
+			File f = new File(filePath);
+			Parser parser = new AutoDetectParser();
+		      BodyContentHandler handler = new BodyContentHandler(10*1024*1024);
+		      Metadata metadata = new Metadata();
+		      try{
+		      FileInputStream inputstream = new FileInputStream(f);
+		      ParseContext context = new ParseContext();
+		      
+		      parser.parse(inputstream, handler, metadata, context);
+		      }catch(Exception e){e.printStackTrace();}
+		      //System.out.println(handler.toString());
+
+		      String[] metadataNames = metadata.names();
+		      System.out.println(metadata.names().length);
+		      HashMap<String, String> metaDataMap = new HashMap<String, String>();
+		      for(String key : metadata.names()){
+		    	  metaDataMap.put(key, metadata.get(key).toString());
+		      }
+		      data.setFileMetaData(metaDataMap);
+
+			
+			//ending here
+			
+			
+			/*HashMap<String, String> metaDataMap = new HashMap<String, String>();
 			System.out.println(doc.select("meta").size());
 			for(Element meta : doc.select("meta")) {
 				
 				metaDataMap.put(meta.attr("name").toString(), meta.attr("content").toString());
 			    //System.out.println("Name: " + meta.attr("name") + " - Content: " + meta.attr("content"));
 			}
-			data.setFileMetaData(metaDataMap);
+			data.setFileMetaData(metaDataMap);*/
+			
+			
+			
 			data.createJSON();
-			FileWriter file = new FileWriter(".\\CrawlerStorage\\Metadata.json",true);
+			FileWriter file = new FileWriter(".\\Metadata.json",true);
 			file.write(data.getJson().toJSONString());
 			file.write("\r\n");
 			file.flush();
