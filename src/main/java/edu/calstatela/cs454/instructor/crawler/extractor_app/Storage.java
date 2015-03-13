@@ -21,6 +21,7 @@ import org.apache.tika.sax.BodyContentHandler;
 import org.apache.tika.sax.LinkContentHandler;
 import org.apache.tika.sax.TeeContentHandler;
 import org.apache.tika.sax.ToHTMLContentHandler;
+import org.json.simple.JSONArray;
 import org.json.simple.JSONObject;
 import org.json.simple.parser.JSONParser;
 import org.jsoup.Jsoup;
@@ -35,6 +36,16 @@ public class Storage {
 	private final static Pattern FILTERS = Pattern
 			.compile(".*\\.(jpg|xls|xlsx|doc|docx|ppt|pptx|pdf|mp3|jpeg)"
 					+ "(\\?.*)?$");
+	private static JSONArray jsonArr = new JSONArray();
+	
+	public static void saveArray() throws IOException{
+		FileWriter file = new FileWriter(".\\Control.json",true);
+		file.write(jsonArr.toJSONString());
+		file.write("\r\n");
+		file.flush();
+		file.close();
+		
+	}
 
 	public void saveMetadata(String filePath, String url) throws SAXException, TikaException {
 		try {
@@ -90,11 +101,14 @@ public class Storage {
 			
 			
 			data.createJSON();
-			FileWriter file = new FileWriter(".\\Control.json",true);
+			
+			jsonArr.add(data.getJson());
+			
+			/*FileWriter file = new FileWriter(".\\Control.json",true);
 			file.write(data.getJson().toJSONString());
 			file.write("\r\n");
 			file.flush();
-			file.close();
+			file.close();*/
 
 		} catch (IOException e) {
 			// TODO Auto-generated catch block

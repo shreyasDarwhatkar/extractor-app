@@ -60,5 +60,8 @@ public class Extractor {
 			for(File f1 : list)
 				objstorage.saveMetadata(f1.getAbsolutePath(), urlMap.get(f));
 		}
+		
+		Storage.saveArray();
+		
 	}
 }
