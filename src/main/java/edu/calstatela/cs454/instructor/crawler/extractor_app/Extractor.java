@@ -23,7 +23,6 @@ public class Extractor {
 
 		System.out.println("Started");
 		File root = new File(path);
-		//System.out.println(path);
 		//File[] list = root.listFiles();
         Storage objstorage=new Storage();
         File jsonFile = new File(path+"map.json");
@@ -44,8 +43,6 @@ public class Extractor {
 			key = key + (String) jsonObject.get("filename")+ "\\";
 			value = (String) jsonObject.get("url");
 			urlMap.put(new File(key),value );
-			//System.out.println(jsonObject.get("filename"));
-			//System.out.println(jsonObject.get("url"));
 			key = path;
 		}
 		
