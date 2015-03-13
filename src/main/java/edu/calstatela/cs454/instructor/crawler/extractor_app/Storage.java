@@ -42,6 +42,7 @@ public class Storage {
 			DataWeb data = new DataWeb();
 			//System.out.println(filePath);
 			data.setUrl(url);
+			data.setPath(filePath);
 			Elements urlLinks = doc.select("a[href]");
 			ArrayList<String> temp = new ArrayList<String>();
 			HashMap<String, String> linkMap = new HashMap<String, String>();
@@ -89,7 +90,7 @@ public class Storage {
 			
 			
 			data.createJSON();
-			FileWriter file = new FileWriter(".\\Metadata.json",true);
+			FileWriter file = new FileWriter(".\\Control.json",true);
 			file.write(data.getJson().toJSONString());
 			file.write("\r\n");
 			file.flush();
