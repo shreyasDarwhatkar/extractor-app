@@ -274,5 +274,72 @@ public class Storage {
 			e.printStackTrace();
 		}
 	}
+	
+	/*public void mainMetadata(String filePath, String url) throws SAXException, TikaException {
+		try {
+			Document doc = Jsoup.parse(new File(filePath), "utf-8");
+			DataWeb data = new DataWeb();
+			//System.out.println(filePath);
+			data.setUrl(url);
+			data.setPath(filePath);
+			Elements urlLinks = doc.select("a[href]");
+			ArrayList<String> temp = new ArrayList<String>();
+			HashMap<String, String> linkMap = new HashMap<String, String>();
+			for (Element ele : urlLinks) {
+				
+				linkMap.put(ele.text(), ele.attr("abs:href"));
+			}
+			data.setLinks(linkMap);
+			
+			// startting here
+			
+			File f = new File(filePath);
+			Parser parser = new AutoDetectParser();
+		      BodyContentHandler handler = new BodyContentHandler(10*1024*1024);
+		      Metadata metadata = new Metadata();
+		      try{
+		      FileInputStream inputstream = new FileInputStream(f);
+		      ParseContext context = new ParseContext();
+		      
+		      parser.parse(inputstream, handler, metadata, context);
+		      }catch(Exception e){e.printStackTrace();}
+		      //System.out.println(handler.toString());
+
+		      String[] metadataNames = metadata.names();
+		      System.out.println(metadata.names().length);
+		      HashMap<String, String> metaDataMap = new HashMap<String, String>();
+		      for(String key : metadata.names()){
+		    	  metaDataMap.put(key, metadata.get(key).toString());
+		      }
+		      data.setFileMetaData(metaDataMap);
+
+			
+			//ending here
+			
+			
+			HashMap<String, String> metaDataMap = new HashMap<String, String>();
+			System.out.println(doc.select("meta").size());
+			for(Element meta : doc.select("meta")) {
+				
+				metaDataMap.put(meta.attr("name").toString(), meta.attr("content").toString());
+			    //System.out.println("Name: " + meta.attr("name") + " - Content: " + meta.attr("content"));
+			}
+			data.setFileMetaData(metaDataMap);
+			
+			
+			
+			data.createJSON();
+			FileWriter file = new FileWriter(".\\Control.json",true);
+			file.write(data.getJson().toJSONString());
+			file.write("\r\n");
+			file.flush();
+			file.close();
+
+		} catch (IOException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+
+	}*/
 
 }
