@@ -15,7 +15,7 @@
 	</properties>
 	
 	<build>
-		<finalName>Extractor</finalName>
+		<finalName>extractor</finalName>
 		<plugins>
 
 			<!-- download source code in Eclipse, best practice -->
@@ -48,7 +48,7 @@
 					<archive>
 						<manifest>
 							<addClasspath>true</addClasspath>
-							<mainClass>edu.calstatela.cs454.instructor.crawler.extractor_app</mainClass>
+							<mainClass>edu.calstatela.cs454.instructor.crawler.extractor_app.App</mainClass>
 							<classpathPrefix>dependency-jars/</classpathPrefix>
 						</manifest>
 					</archive>
