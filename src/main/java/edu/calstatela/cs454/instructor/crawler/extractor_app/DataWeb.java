@@ -89,16 +89,6 @@ public class DataWeb {
 	}
 
 	public void createJSON(){
-		this.json.put("url", this.url);
-		//this.json.put("data", this.data);
-		//JSONArray arr = new JSONArray();
-		//System.out.println(this.links.size());
-		//arr.addAll(this.links);
-		//System.out.println(arr.size());
-		//this.json.put("links", arr);
-		//this.json.put("links", this.links);
-		//this.json.put("files",);
-		//this.json.put("Metadata", this.elements);
 		this.json.put("URL", url);
 		this.json.put("path", path);
 		this.json.put("MetaData", FileMetaData);
