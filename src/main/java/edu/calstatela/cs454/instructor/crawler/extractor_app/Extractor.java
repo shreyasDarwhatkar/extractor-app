@@ -19,13 +19,17 @@ import org.xml.sax.SAXException;
 
 public class Extractor {
 
-	public void walk(String path) throws FileNotFoundException, IOException, ParseException, SAXException, TikaException {
+	public void walk(String jsonPath) throws FileNotFoundException, IOException, ParseException, SAXException, TikaException {
 
 		System.out.println("Started");
+		File root1 = new File(jsonPath);
+		String path = root1.getParentFile().toString();
+		System.out.println("Path : "+path);
+		path = path+"\\";
 		File root = new File(path);
 		//File[] list = root.listFiles();
         Storage objstorage=new Storage();
-        File jsonFile = new File(path+"map.json");
+        File jsonFile = new File(jsonPath);
         System.out.println(jsonFile);
         JSONParser jsonParser = new JSONParser();
 		//JSONObject jsonObject = (JSONObject) jsonParser.parse(new FileReader(jsonFile));

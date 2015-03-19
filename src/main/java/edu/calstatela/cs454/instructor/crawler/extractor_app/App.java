@@ -11,7 +11,7 @@ public class App
     public static void main( String[] args )
     {
     	try {
-		    //String startDir = "C:\\Users\\Akshay\\cs454seo\\WebCrawler\\target\\CrawlerStorage\\";//args[0];//".";
+		    //String startDir = "C:\\Users\\Akshay\\cs454seo\\WebCrawler\\target\\CrawlerStorage\\map.json";//args[0];//".";
     		String startDir = args[1];
     		new Extractor().walk(startDir);
 	    } catch (Exception ex) {

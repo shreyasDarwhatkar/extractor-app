@@ -58,8 +58,8 @@ public class Storage {
 			ArrayList<String> temp = new ArrayList<String>();
 			HashMap<String, String> linkMap = new HashMap<String, String>();
 			for (Element ele : urlLinks) {
-				
-				linkMap.put(ele.text(), ele.attr("abs:href"));
+				if(!ele.attr("abs:href").equals(""))
+					linkMap.put(ele.text(), ele.attr("abs:href"));
 			}
 			data.setLinks(linkMap);
 			
