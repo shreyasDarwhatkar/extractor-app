@@ -1,39 +1,40 @@
 package edu.calstatela.cs454.instructor.crawler.extractor_app;
 
-import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
-import java.util.Map;
 
-import org.json.simple.JSONArray;
+
 import org.json.simple.JSONObject;
 import org.jsoup.select.Elements;
 
 public class DataWeb {
 	
 	String url;
+	
 	String path;
-	//List<String> links;
+	
 	List<DataFile> files;
+	
 	Elements elements;
-	//List<Link> Urllinks;
+	
 	HashMap<String,String> Links;
+	
 	JSONObject json;
+	
 	JSONObject metadata;
+	
 	HashMap<String,String> FileMetaData;
 
 	public DataWeb() {
 		super();
-		//links = new ArrayList<String>();
 		json = new JSONObject();
 	}
 
 	public DataWeb(String path, List<String> links, List<DataFile> files,
 			Elements elements, JSONObject json) {
 		super();
-		this.url = url;
+		//this.url = url;
 		this.path = path;
-		//this.links = links;
 		this.files = files;
 		this.elements = elements;
 		this.json = json;
@@ -88,6 +89,7 @@ public class DataWeb {
 		this.url = url;
 	}
 
+	@SuppressWarnings("unchecked")
 	public void createJSON(){
 		this.json.put("URL", url);
 		this.json.put("path", path);
@@ -95,24 +97,6 @@ public class DataWeb {
 		this.json.put("links", this.Links);
 		
 	}
-
-	/*public List<Link> getUrllinks() {
-		return Urllinks;
-	}
-
-	public void setUrllinks(List<Link> urllinks) {
-		Urllinks = urllinks;
-	}
-*/
-	/*public Metadata getMetadata2() {
-		return metadata2;
-	}
-
-	public void setMetadata2(Metadata metadata2) {
-		this.metadata2 = metadata2;
-	}
-*/
-	
 
 	public void setLinks(HashMap<String, String> links) {
 		Links = links;

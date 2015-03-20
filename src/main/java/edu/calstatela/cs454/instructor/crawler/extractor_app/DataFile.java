@@ -6,10 +6,15 @@ import org.jsoup.nodes.Element;
 public class DataFile {
 	
 	String url;
+	
 	String date;
+	
 	String filename;
+	
 	String localFilename;
+	
 	String type;
+	
 	Element elements;
 	
 	JSONObject json;
@@ -87,6 +92,7 @@ public class DataFile {
 		this.json = json;
 	}
 
+	@SuppressWarnings("unchecked")
 	public void createJSON(){
 		this.json.put("url", this.url);
 		this.json.put("date", this.date);

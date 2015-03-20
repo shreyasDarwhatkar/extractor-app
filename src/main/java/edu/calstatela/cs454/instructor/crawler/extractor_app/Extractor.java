@@ -4,10 +4,7 @@ import java.io.File;
 import java.io.FileNotFoundException;
 import java.io.FileReader;
 import java.io.IOException;
-import java.util.ArrayList;
 import java.util.HashMap;
-import java.util.Iterator;
-import java.util.List;
 import java.util.Map;
 
 import org.apache.tika.exception.TikaException;
@@ -21,21 +18,13 @@ public class Extractor {
 
 	public void walk(String jsonPath) throws FileNotFoundException, IOException, ParseException, SAXException, TikaException {
 
-		System.out.println("Started");
 		File root1 = new File(jsonPath);
 		String path = root1.getParentFile().toString();
-		System.out.println("Path : "+path);
 		path = path+"\\";
-		File root = new File(path);
-		//File[] list = root.listFiles();
-        Storage objstorage=new Storage();
+		Storage objstorage=new Storage();
         File jsonFile = new File(jsonPath);
-        System.out.println(jsonFile);
         JSONParser jsonParser = new JSONParser();
-		//JSONObject jsonObject = (JSONObject) jsonParser.parse(new FileReader(jsonFile));
 		JSONArray jsonArr = (JSONArray) jsonParser.parse(new FileReader(jsonFile));
-		System.out.println(jsonArr);
-		System.out.println("here");
 		
 		Map<File, String> urlMap = new HashMap<File, String>();
 		
@@ -49,11 +38,6 @@ public class Extractor {
 			urlMap.put(new File(key),value );
 			key = path;
 		}
-		
-		System.out.println("Started 2");
-		System.out.println(urlMap);
-		
-		
 		
 		if (urlMap.keySet() == null)
 			return;
